@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:validation="http://www.mulesoft.org/schema/mule/validation" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="2415e604-7cfe-4e74-9e1d-13f4477e363f" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<configuration doc:name="Configuration" doc:id="08dc934a-f178-40e9-af77-1c32d12073ce" defaultErrorHandler-ref="Error_Handler" />
+	<error-handler name="Error_Handler" doc:id="5f19821b-c08c-4a08-9680-36c55e3f294c" >
+		<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="15290326-d146-489a-b580-a710b23104a0" >
+			<logger level="INFO" doc:name="Logger" doc:id="bfa93aa9-93c3-4412-a343-784a6e00c02f" />
+			<set-payload value="sarfraz" doc:name="Set Payload" doc:id="f65af1a7-52ea-4198-84f9-4492fc4c045a" />
+			<logger level="INFO" doc:name="Logger" doc:id="7c108334-f8fd-4308-8014-7c1a467535da" />
+		</on-error-continue>
+	</error-handler>
+	<flow name="processorlevelerrorhandling3Flow" doc:id="63562151-fc2e-49f6-a54f-fcb09ef75533" >
+		<http:listener doc:name="Listener" doc:id="fd63754a-b53a-4931-9823-b2d042e60461" config-ref="HTTP_Listener_config" path="/test"/>
+		<logger level="INFO" doc:name="Logger" doc:id="709377fe-90c4-42e4-ab0b-42e8a1783c77" message="start flow"/>
+		<validation:is-null doc:name="Is null" doc:id="8fef0f33-1fb5-41f8-ad99-2f2a18edaa85" value="#[payload]"/>
+		<set-payload value="azirul bhai" doc:name="Set Payload" doc:id="c9114ad0-2189-495f-b9f2-f4005a03e148" />
+		<logger level="INFO" doc:name="Logger" doc:id="73197459-3e7a-4287-b638-25b15586fde4" message="end flow"/>
+	</flow>
+</mule>
